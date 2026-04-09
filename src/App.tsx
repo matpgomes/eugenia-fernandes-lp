@@ -11,8 +11,8 @@ const WHATSAPP_NUMBER = '351XXXXXXXXX'
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta.`
 const PHONE_DISPLAY = '+351 XXX XXX XXX'
 const ADDRESS = 'Rua XXXXX, Lisboa, Portugal'
-const INSTAGRAM_URL = 'https://www.instagram.com/eugeniafernandes.estetica'
-const INSTAGRAM_HANDLE = 'eugeniafernandes.estetica'
+const INSTAGRAM_URL = 'https://www.instagram.com/ef.estetica.makeup'
+const INSTAGRAM_HANDLE = 'ef.estetica.makeup'
 const CLINIC_NAME = 'Eugenia Fernandes Estética & Makeup'
 const GOOGLE_MAPS_EMBED = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113!2d-9.15!3d38.74!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDQ0JzI0LjAiTiA5wrAwOScwMC4wIlc!5e0!3m2!1spt-PT!2spt!4v1'
 
