@@ -1,14 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
 import {
   Menu, X, Phone, MapPin, Star, ChevronDown,
-  Play, Heart, CheckCircle, ArrowUp, MessageCircle,
+  Heart, CheckCircle, ArrowUp, MessageCircle,
   Camera, Mail, Sparkles, CalendarCheck,
   Droplets, Zap, Gem, Sun, Eye
 } from 'lucide-react'
+// @ts-ignore
+import Plyr from 'plyr'
+import 'plyr/dist/plyr.css'
 
 // ── Constants ──
 const WHATSAPP_NUMBER = '351XXXXXXXXX'
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta.`
+const BOOKING_LINK = 'https://efesteticamakeup.buk.pt/'
 const PHONE_DISPLAY = '+351 XXX XXX XXX'
 const ADDRESS = 'Rua XXXXX, Lisboa, Portugal'
 const INSTAGRAM_URL = 'https://www.instagram.com/ef.estetica.makeup'
@@ -91,37 +95,12 @@ function SectionHeader({ label, title, subtitle }: { label: string; title: strin
   )
 }
 
-// ── useVideoPoster Hook ──
-function useVideoPoster(src: string, posterTime = 0.5) {
-  const [poster, setPoster] = useState('')
-  useEffect(() => {
-    if (!src) return
-    const video = document.createElement('video')
-    video.muted = true
-    video.playsInline = true
-    video.preload = 'metadata'
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-    video.addEventListener('loadeddata', () => { video.currentTime = posterTime })
-    video.addEventListener('seeked', () => {
-      canvas.width = video.videoWidth || 720
-      canvas.height = video.videoHeight || 1280
-      ctx?.drawImage(video, 0, 0, canvas.width, canvas.height)
-      setPoster(canvas.toDataURL('image/jpeg', 0.8))
-      video.pause(); video.src = ''; video.load()
-    })
-    video.src = src; video.load()
-    return () => { video.pause(); video.src = '' }
-  }, [src, posterTime])
-  return poster
-}
-
-// ── VideoCard Component ──
-function VideoCard({ src, title, posterTime = 0.5 }: { src: string; title: string; posterTime?: number }) {
-  const [isNear, setIsNear] = useState(false)
-  const [state, setState] = useState<'idle' | 'loading' | 'playing'>('idle')
+// ── VideoCard Component (Plyr) ──
+function VideoCard({ src, title }: { src: string; title: string; posterTime?: number }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const playerRef = useRef<Plyr | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
+  const [isNear, setIsNear] = useState(false)
 
   useEffect(() => {
     const el = cardRef.current
@@ -133,37 +112,35 @@ function VideoCard({ src, title, posterTime = 0.5 }: { src: string; title: strin
     return () => io.disconnect()
   }, [])
 
-  const poster = useVideoPoster(isNear ? src : '', posterTime)
-
-  const handlePlay = async () => {
-    setState('loading')
-    try {
-      const vid = videoRef.current
-      if (!vid) return
-      vid.muted = false
-      await vid.play()
-      setState('playing')
-    } catch { setState('idle') }
-  }
+  useEffect(() => {
+    if (!isNear || !videoRef.current || playerRef.current) return
+    playerRef.current = new Plyr(videoRef.current, {
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      resetOnEnd: true,
+      tooltips: { controls: false, seek: true },
+      i18n: {
+        play: 'Reproduzir',
+        pause: 'Pausar',
+        mute: 'Silenciar',
+        unmute: 'Ativar som',
+        enterFullscreen: 'Tela cheia',
+        exitFullscreen: 'Sair da tela cheia',
+        seek: 'Buscar',
+      },
+    })
+    return () => { playerRef.current?.destroy(); playerRef.current = null }
+  }, [isNear])
 
   return (
-    <div ref={cardRef} className={`video-card video-card--${state} reveal reveal--up`}>
-      {poster && state !== 'playing' && (
-        <img className="video-card__poster" src={poster} alt={title} draggable={false} />
-      )}
-      {state !== 'playing' && (
-        <button className="video-card__play" onClick={handlePlay} aria-label={`Reproduzir: ${title}`}>
-          <span className="video-card__play-circle">
-            {state === 'idle' && <Play size={28} fill="white" />}
-            {state === 'loading' && <span className="video-card__spinner" />}
-          </span>
-        </button>
-      )}
+    <div ref={cardRef} className="video-card reveal reveal--up">
       <video
         ref={videoRef}
-        className={`video-card__video ${state === 'playing' ? 'video-card__video--visible' : ''}`}
-        src={src} playsInline controls={state === 'playing'} preload="none"
-      />
+        playsInline
+        preload="none"
+        aria-label={title}
+      >
+        {isNear && <source src={src} type="video/mp4" />}
+      </video>
     </div>
   )
 }
@@ -287,8 +264,8 @@ export default function App() {
               <a key={link.href} href={link.href} className="navbar-link">{link.label}</a>
             ))}
           </div>
-          <a href={WHATSAPP_LINK} className="btn-cta navbar-cta" target="_blank" rel="noopener noreferrer">
-            <MessageCircle size={16} /> Agendar
+          <a href={BOOKING_LINK} className="btn-cta navbar-cta" target="_blank" rel="noopener noreferrer">
+            <CalendarCheck size={16} /> Agendar
           </a>
           <button className="navbar-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -305,8 +282,8 @@ export default function App() {
                 {link.label}
               </a>
             ))}
-            <a href={WHATSAPP_LINK} className="btn-cta mobile-menu-cta" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={16} /> Agendar pelo WhatsApp
+            <a href={BOOKING_LINK} className="btn-cta mobile-menu-cta" target="_blank" rel="noopener noreferrer">
+              <CalendarCheck size={16} /> Agendar Consulta
             </a>
           </div>
         </div>
@@ -326,8 +303,8 @@ export default function App() {
             <p className="hero-subtitle">
               Estética facial, corporal e maquilhagem profissional em Lisboa. Resultados visíveis desde a primeira sessão.
             </p>
-            <a href={WHATSAPP_LINK} className="btn-cta hero-cta" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={18} /> Agendar Consulta
+            <a href={BOOKING_LINK} className="btn-cta hero-cta" target="_blank" rel="noopener noreferrer">
+              <CalendarCheck size={18} /> Agendar Consulta
             </a>
             <div className="hero-badge glass">
               <Star size={16} fill="#F59E0B" color="#F59E0B" />
@@ -502,8 +479,8 @@ export default function App() {
                 </li>
               ))}
             </ul>
-            <a href={WHATSAPP_LINK} className="btn-cta cta-btn" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={18} /> Agendar pelo WhatsApp
+            <a href={BOOKING_LINK} className="btn-cta cta-btn" target="_blank" rel="noopener noreferrer">
+              <CalendarCheck size={18} /> Agendar Consulta
             </a>
           </div>
         </div>
@@ -534,9 +511,9 @@ export default function App() {
       <section id="faq" className="faq-section">
         <div className="container faq-container">
           <SectionHeader label="Dúvidas" title="Perguntas Frequentes" />
-          <div className="faq-list">
+          <div className="faq-list reveal reveal--up">
             {FAQ_ITEMS.map((item, i) => (
-              <div key={i} className={`faq-item reveal reveal--up ${openFaq === i ? 'faq-item--open' : ''}`} style={{ transitionDelay: `${i * 0.04}s` }}>
+              <div key={i} className={`faq-item ${openFaq === i ? 'faq-item--open' : ''}`}>
                 <button className="faq-trigger" onClick={() => setOpenFaq(prev => prev === i ? null : i)} aria-expanded={openFaq === i} aria-controls={`faq-answer-${i}`} id={`faq-trigger-${i}`}>
                   <span className="faq-question">{item.question}</span>
                   <span className="faq-icon"><ChevronDown size={20} /></span>

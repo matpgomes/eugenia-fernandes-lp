@@ -379,48 +379,31 @@
 
 .video-card {
   position: relative; border-radius: var(--radius-xl); overflow: hidden;
-  background: var(--color-black); aspect-ratio: 9 / 16; cursor: pointer;
+  background: var(--color-black); aspect-ratio: 9 / 16;
   box-shadow: var(--shadow-lg);
   transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
 }
 @media (hover: hover) { .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); } }
-.video-card__poster {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; transition: opacity var(--duration-base) var(--ease-out);
+
+/* Plyr inside video-card */
+.video-card .plyr {
+  height: 100%; border-radius: var(--radius-xl);
 }
-.video-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(62,42,30,0.4) 0%, transparent 50%);
-  z-index: 1; pointer-events: none;
+.video-card .plyr video {
+  width: 100%; height: 100%; object-fit: cover;
 }
-.video-card__play {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: transparent; border: none; cursor: pointer; z-index: 2;
+.video-card .plyr--video {
+  background: var(--color-black);
 }
-.video-card__play-circle {
-  width: 72px; height: 72px; border-radius: var(--radius-full);
-  background: rgba(139,110,90,0.35); backdrop-filter: blur(8px);
+.video-card .plyr__control--overlaid {
+  background: rgba(139,110,90,0.45);
+  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.25);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--color-white);
-  transition: transform var(--duration-base) var(--ease-spring), background var(--duration-base) var(--ease-out);
 }
-.video-card__play:hover .video-card__play-circle { transform: scale(1.1); background: rgba(139,110,90,0.5); }
-.video-card__spinner {
-  width: 28px; height: 28px; border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: var(--color-white); border-radius: var(--radius-full);
-  animation: spin 0.8s linear infinite;
+.video-card .plyr__control--overlaid:hover {
+  background: rgba(139,110,90,0.6);
 }
-.video-card__video {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-.video-card__video--visible { opacity: 1; pointer-events: auto; }
-
-@media (max-width: 480px) { .video-card__play-circle { width: 56px; height: 56px; } }
 
 .videos-dots { display: none; gap: var(--space-2); justify-content: center; margin-top: var(--space-4); }
 @media (max-width: 1023px) { .videos-dots { display: flex; } }
@@ -558,7 +541,7 @@
 .faq-list { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-12); }
 .faq-item {
   background: var(--color-card-bg); border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg); overflow: hidden;
+  border-radius: var(--radius-lg);
   transition: border-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
 }
 .faq-item--open { border-color: var(--color-border-strong); box-shadow: var(--shadow-md); }
@@ -579,9 +562,9 @@
   transition: transform var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
 }
 .faq-item--open .faq-icon { transform: rotate(180deg); background: var(--color-gold); color: var(--color-white); }
-.faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--duration-slow) var(--ease-out); }
-.faq-item--open .faq-answer { grid-template-rows: 1fr; }
-.faq-answer-inner { overflow: hidden; padding: 0 var(--space-6) 0 var(--space-6); }
+.faq-answer { overflow: hidden; max-height: 0; transition: max-height var(--duration-slow) var(--ease-out), padding var(--duration-slow) var(--ease-out); }
+.faq-item--open .faq-answer { max-height: 500px; }
+.faq-answer-inner { padding: 0 var(--space-6) 0 var(--space-6); }
 .faq-item--open .faq-answer-inner { padding-bottom: var(--space-5); }
 .faq-answer-text { font-size: var(--text-base); color: var(--color-text-body); line-height: 1.7; }
 .faq-item--open .faq-trigger { border-bottom: 1px solid var(--color-border); }
