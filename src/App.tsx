@@ -321,7 +321,7 @@ export default function App() {
               Realce a sua <em>beleza natural</em> com tratamentos de excelência
             </h1>
             <div className="hero-image-mobile-slot">
-              <img className="hero-image" src="/logo.webp" alt="Eugenia Fernandes" width={260} height={260} />
+              <img className="hero-image" src="/hero.jpg" alt="Eugenia Fernandes" width={260} height={260} />
             </div>
             <p className="hero-subtitle">
               Estética facial, corporal e maquilhagem profissional em Lisboa. Resultados visíveis desde a primeira sessão.
@@ -338,7 +338,7 @@ export default function App() {
             </div>
           </div>
           <div className="hero-image-desktop">
-            <img className="hero-image" src="/logo.webp" alt="Eugenia Fernandes" width={460} height={460} />
+            <img className="hero-image" src="/hero.jpg" alt="Eugenia Fernandes" width={460} height={460} />
           </div>
         </div>
       </section>
@@ -431,7 +431,7 @@ export default function App() {
       <section id="bio" className="bio-section">
         <div className="container bio-grid">
           <div className="bio-image-wrap reveal reveal--left">
-            <img src="/logo.webp" alt="Eugenia Fernandes" className="bio-image" width={400} height={500} />
+            <img src="/about.jpg" alt="Eugenia Fernandes" className="bio-image" width={400} height={500} />
           </div>
           <div className="bio-content reveal reveal--right" style={{ transitionDelay: '0.1s' }}>
             <span className="section-label">Sobre</span>
