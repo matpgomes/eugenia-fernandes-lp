@@ -541,7 +541,7 @@
 .faq-list { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-12); }
 .faq-item {
   background: var(--color-card-bg); border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg); overflow: hidden;
+  border-radius: var(--radius-lg);
   transition: border-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
 }
 .faq-item--open { border-color: var(--color-border-strong); box-shadow: var(--shadow-md); }
