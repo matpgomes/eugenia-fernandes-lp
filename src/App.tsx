@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import {
-  Menu, X, Phone, MapPin, Clock, Star, ChevronDown,
+  Menu, X, Phone, MapPin, Star, ChevronDown,
   Play, Heart, CheckCircle, ArrowUp, MessageCircle,
-  Instagram, Mail, Sparkles, Users, Award, CalendarCheck,
-  Scissors, Droplets, Zap, Gem, Sun, Eye
+  Camera, Mail, Sparkles, CalendarCheck,
+  Droplets, Zap, Gem, Sun, Eye
 } from 'lucide-react'
 
 // ── Constants ──
@@ -573,7 +573,7 @@ export default function App() {
           </div>
           <div className="footer-col">
             <h4 className="footer-heading">Redes Sociais</h4>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="footer-link"><Instagram size={14} /> Instagram</a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="footer-link"><Camera size={14} /> Instagram</a>
           </div>
         </div>
         <div className="footer-bottom">
