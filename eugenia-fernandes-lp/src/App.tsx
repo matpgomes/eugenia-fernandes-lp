@@ -11,7 +11,7 @@ import 'plyr/dist/plyr.css'
 // ── Constants ──
 const WHATSAPP_NUMBER = '351XXXXXXXXX'
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta.`
-const BOOKING_LINK = 'https://buk.pt/efesteticamakeup'
+const BOOKING_LINK = 'https://efesteticamakeup.buk.pt/'
 const PHONE_DISPLAY = '+351 XXX XXX XXX'
 const ADDRESS = 'Rua XXXXX, Lisboa, Portugal'
 const INSTAGRAM_URL = 'https://www.instagram.com/ef.estetica.makeup'
