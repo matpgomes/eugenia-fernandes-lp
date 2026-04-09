@@ -11,6 +11,7 @@ import 'plyr/dist/plyr.css'
 // ── Constants ──
 const WHATSAPP_NUMBER = '351XXXXXXXXX'
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta.`
+const BOOKING_LINK = 'https://buk.pt/efesteticamakeup'
 const PHONE_DISPLAY = '+351 XXX XXX XXX'
 const ADDRESS = 'Rua XXXXX, Lisboa, Portugal'
 const INSTAGRAM_URL = 'https://www.instagram.com/ef.estetica.makeup'
@@ -262,8 +263,8 @@ export default function App() {
               <a key={link.href} href={link.href} className="navbar-link">{link.label}</a>
             ))}
           </div>
-          <a href={WHATSAPP_LINK} className="btn-cta navbar-cta" target="_blank" rel="noopener noreferrer">
-            <MessageCircle size={16} /> Agendar
+          <a href={BOOKING_LINK} className="btn-cta navbar-cta" target="_blank" rel="noopener noreferrer">
+            <CalendarCheck size={16} /> Agendar
           </a>
           <button className="navbar-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -280,8 +281,8 @@ export default function App() {
                 {link.label}
               </a>
             ))}
-            <a href={WHATSAPP_LINK} className="btn-cta mobile-menu-cta" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={16} /> Agendar pelo WhatsApp
+            <a href={BOOKING_LINK} className="btn-cta mobile-menu-cta" target="_blank" rel="noopener noreferrer">
+              <CalendarCheck size={16} /> Agendar Consulta
             </a>
           </div>
         </div>
@@ -301,8 +302,8 @@ export default function App() {
             <p className="hero-subtitle">
               Estética facial, corporal e maquilhagem profissional em Lisboa. Resultados visíveis desde a primeira sessão.
             </p>
-            <a href={WHATSAPP_LINK} className="btn-cta hero-cta" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={18} /> Agendar Consulta
+            <a href={BOOKING_LINK} className="btn-cta hero-cta" target="_blank" rel="noopener noreferrer">
+              <CalendarCheck size={18} /> Agendar Consulta
             </a>
             <div className="hero-badge glass">
               <Star size={16} fill="#F59E0B" color="#F59E0B" />
@@ -477,8 +478,8 @@ export default function App() {
                 </li>
               ))}
             </ul>
-            <a href={WHATSAPP_LINK} className="btn-cta cta-btn" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={18} /> Agendar pelo WhatsApp
+            <a href={BOOKING_LINK} className="btn-cta cta-btn" target="_blank" rel="noopener noreferrer">
+              <CalendarCheck size={18} /> Agendar Consulta
             </a>
           </div>
         </div>
